@@ -2,7 +2,63 @@
     <head>
         <title>3D FlowerBox </title>
     </head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        iframe {
+            width: 90%;
+            height: 80%;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+        }
+        .error {
+            color: red;
+            margin-top: 20px;
+        }
+    </style>
     <body>
-        <iframe src="https://playcanv.as/b/6eba8e7a" allowfullscreen></iframe>
+        <div class="container">
+            <h1>3D FlowerBox</h1>
+            <iframe 
+                id="playcanvasFrame"
+                src="https://playcanv.as/b/6eba8e7a" 
+                allow="camera; microphone; xr-spatial-tracking; fullscreen"
+                allowfullscreen>
+            </iframe>
+            <div id="error" class="error"></div>
+        </div>
+    
+        <script>
+            window.addEventListener('load', function() {
+                const frame = document.getElementById('playcanvasFrame');
+                const errorDiv = document.getElementById('error');
+                
+                frame.onload = function() {
+                    errorDiv.textContent = '';
+                };
+                
+                frame.onerror = function() {
+                    errorDiv.textContent = 'Fejl: Kunne ikke indlæse 3D-modellen. Prøv at åbne den direkte: ';
+                    const link = document.createElement('a');
+                    link.href = frame.src;
+                    link.textContent = 'Åbn PlayCanvas';
+                    link.target = '_blank';
+                    errorDiv.appendChild(link);
+                };
+            });
+        </script>
+        
     </body>
 </html>
